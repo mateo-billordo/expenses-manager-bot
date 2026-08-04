@@ -1,0 +1,19 @@
+# Environment
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Data (keep structure, ignore content)
+data/*
+!data/receipts/
+data/receipts/*
+!data/receipts/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp

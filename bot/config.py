@@ -16,11 +16,12 @@ MESSAGES_PATH = BASE_DIR / "messages.json"
 
 BOT_TOKEN: str = os.getenv("BOT_TOKEN", "")
 ADMIN_ID: int = int(os.getenv("ADMIN_ID", "0"))
-ALLOWED_USERS: list[int] = [
+_allowed_env: list[int] = [
     int(uid.strip())
     for uid in os.getenv("ALLOWED_USERS", "").split(",")
     if uid.strip()
 ]
+ALLOWED_USERS: list[int] = list(set(_allowed_env + [ADMIN_ID])) if ADMIN_ID else _allowed_env
 GROUP_CHAT_ID: int = int(os.getenv("GROUP_CHAT_ID", "0"))
 PENDING_TIMEOUT: int = int(os.getenv("PENDING_TIMEOUT", "600"))
 

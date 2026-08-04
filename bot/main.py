@@ -37,16 +37,18 @@ def main() -> None:
     # Create bot instance
     bot = telebot.TeleBot(BOT_TOKEN, parse_mode=None)
 
-    # Debug: log all incoming messages
-    @bot.middleware_handler(update_types=["message"])
-    def log_message(bot_instance, message):
-        logger.debug(
-            "MSG from chat_id=%s user_id=%s type=%s text=%s",
-            message.chat.id,
-            message.from_user.id if message.from_user else None,
-            message.chat.type,
-            (message.text or message.caption or "")[:50],
-        )
+    # Debug: log all incoming updates
+    def _log_updates(messages):
+        for m in messages:
+            logger.debug(
+                "MSG from chat_id=%s user_id=%s type=%s text=%s",
+                m.chat.id,
+                m.from_user.id if m.from_user else None,
+                m.chat.type,
+                (m.text or m.caption or "")[:50],
+            )
+
+    bot.set_update_listener(_log_updates)
 
     # Set bot reference for state timeout notifications
     set_bot(bot)

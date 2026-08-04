@@ -13,5 +13,4 @@ docker compose build --no-cache
 echo "🚀 Starting container..."
 docker compose up -d
 
-echo "📋 Following logs (Ctrl+C to exit)..."
-docker compose logs -f
+echo "✅ expenses_bot is running."
